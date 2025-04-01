@@ -1,20 +1,19 @@
-const mysql = require('mysql2');
-const db = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'music_db_user',
-    password: 'secretPassword1',
-    database: 'music'
+const USER = process.env.DB_USER;
+const PASSWORD = process.env.DB_PASSWORD;
+const HOST = process.env.DB_HOST;
+const PORT = process.env.DB_PORT;
+const DATABASE = process.env.DB_DATABASE;
+    
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: USER,
+  password: PASSWORD,
+  host: HOST,
+  port: PORT, // default Postgres port
+  database:DATABASE
 });
 
-
-db.connect((err) => {
-
-    if (err) {
-        console.error('Error connecting: ' + err.stack);
-        return;
-    }
-    
-    console.log('Connected as id ' + db.threadId);
-});
-    
-module.exports = db;
+module.exports = {
+  query: (text, params) => pool.query(text, params)
+};
