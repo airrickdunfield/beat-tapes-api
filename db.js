@@ -1,13 +1,20 @@
-
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: PGUSER,
-  password: PGPASSWORD,
-  host: PGHOST,
-  database:PGDATABASE
+const mysql = require('mysql2');
+const db = mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'music_db_user',
+    password: 'secretPassword1',
+    database: 'music'
 });
 
-module.exports = {
-  query: (text, params) => pool.query(text, params)
-};
+
+db.connect((err) => {
+
+    if (err) {
+        console.error('Error connecting: ' + err.stack);
+        return;
+    }
+    
+    console.log('Connected as id ' + db.threadId);
+});
+    
+module.exports = db;
