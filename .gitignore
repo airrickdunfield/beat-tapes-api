@@ -13,3 +13,4 @@ coverage
 benchmarks/graphs
 
 .env
+.DS_Store
