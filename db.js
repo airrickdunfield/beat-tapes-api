@@ -7,6 +7,8 @@ const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  keepAliveInitialDelay: 10000, // 0 by default.
+  enableKeepAlive: true, // false by default.
   ssl: {
     ca: require('fs').readFileSync(process.env.DB_SSL_CA) // Load the CA certificate
   }
