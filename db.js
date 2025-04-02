@@ -3,8 +3,8 @@ const mysql = require('mysql2');
 // Create a connection pool
 const pool = mysql.createPool({
     host: process.env.MYSQLHOST,
-    user: "root", // Use Railway or environment variables
-    password: process.env.MYSQL_ROOT_PASSWORD,
+    user: process.env.MYSQLUSER, // Use Railway or environment variables
+    password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQL_DATABASE,
     port: process.env.MYSQLPORT,
     waitForConnections: true,
