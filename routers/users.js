@@ -11,7 +11,7 @@ const bcrypt = require("bcrypt");
 
 // Use jwt for user sessions
 const jwt = require("jsonwebtoken");
-const db = require("../db.local");
+const db = require("../db");
 
 // Store the secret there to use later for ease of use
 const JWT_SECRET = process.env.JWT_SECRET;

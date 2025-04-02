@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const db = require('../db.local');
+const db = require('../db');
 const upload = require('../storage');
 // Import the authentication file
 const authenticateToken = require("../auth.jwt");
