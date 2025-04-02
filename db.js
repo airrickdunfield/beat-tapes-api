@@ -4,8 +4,8 @@ const mysql = require('mysql2');
 const pool = mysql.createPool({
     host: process.env.MYSQLHOST,
     user: "root", // Use Railway or environment variables
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE,
+    password: process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     port: process.env.MYSQLPORT,
     waitForConnections: true,
     connectionLimit: 10, // Maximum number of connections in the pool
@@ -13,4 +13,3 @@ const pool = mysql.createPool({
 });
 
 // Export the pool for use in other parts of the app
-module.exports = pool; 
