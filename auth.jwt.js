@@ -1,31 +1,34 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-// Secret key for JWT (store securely in environment variables)
-const JWT_SECRET = process.env.JWT_SECRET || '👁️👁️';
+const JWT_SECRET = process.env.JWT_SECRET;
 
-// Middleware to verify JWT
-function authenticateToken(req, res, next) {
-    
-    const authHeader = req.headers['authorization'];
+// Our new custom middle ware
+const authenticateToken = (req, res, next) => {
 
-    // Check if the Authorization header exists and starts with "Bearer"
-    const token = authHeader && authHeader.split(' ')[1];
+    // Pull the Authorization header out of the headers
+    const authHeader = req.headers["authorization"];
 
-    if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
+    // Get the token from it
+    const token = authHeader && authHeader.split(" ")[1];
+
+    // Send an error if no token
+    if(!token) {
+        return res.status(401).json({ message: "Access Denied" })
     }
 
-    // Verify the token
-    jwt.verify(token, JWT_SECRET, (err, user) => {
+    // Verify the token using the secret
+    jwt.verify(token, JWT_SECRET, (err, userData) => {
 
-        if (err) {
-            return res.status(403).json({ message: 'Invalid or expired token.' });
+        // Error, token did not validate
+        if(err) {
+            return res.status(403).json({ message: "Invalid or expired token" })
         }
 
-        // Attach the decoded token payload to the request object
-        req.user = user;
+        // Success and move one with the attached user data
+        req.user = userData;
         next();
-    });
+
+    })
 
 }
 
